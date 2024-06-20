@@ -35,6 +35,12 @@ $(document).ready(function () {
         let filter = $(this).data('filter');
         showComments(filter);
     });
+
+    // Kopyalama butonu için olay dinleyicisi
+    $('#copyButton').on('click', function () {
+        let filter = $('.filter-btn.btn-primary').data('filter');
+        copyComments(filter);
+    });
 });
 
 function showComments(filter) {
@@ -65,6 +71,27 @@ function showComments(filter) {
                 </div>
             </div>
         `);
+    });
+}
+
+function copyComments(filter) {
+    const commentCategories = {
+        'negative': 'negative_comments',
+        'criticism': 'criticism_comments',
+        'donation': 'donation_comments',
+        'positive': 'positive_comments',
+        'neutral': 'neutral_comments',
+        'all': 'all_comments'
+    };
+
+    let commentsToCopy = commentCategories[filter] ? window.comments[commentCategories[filter]] : window.comments['all_comments'];
+    let textToCopy = commentsToCopy.map(comment => comment.text).join('\n');
+
+    // Text'i kopyalama
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Yorumlar kopyalandı.');
+    }).catch(err => {
+        alert('Yorumlar kopyalanırken bir hata oluştu.');
     });
 }
 

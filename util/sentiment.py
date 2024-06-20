@@ -1,5 +1,6 @@
 import joblib
 from util.comment import Comment
+from util.clean_data import clean_text
 
 def predictSentiment(comment: str, model, vectorizer):
     """
@@ -12,7 +13,8 @@ def predictSentiment(comment: str, model, vectorizer):
         int: The predicted sentiment category's numerical value (may vary depending on your model's output).
     """
     try:
-        comment_vectorized = vectorizer.transform([comment.lower()])
+        data = clean_text(comment)
+        comment_vectorized = vectorizer.transform([data.lower()])
         prediction = model.predict(comment_vectorized)[0]  # Extract first element of prediction array
         return prediction
 
