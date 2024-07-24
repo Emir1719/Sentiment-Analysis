@@ -1,6 +1,7 @@
 import joblib
 from util.comment import Comment
 from util.clean_data import clean_text
+from util.svc_model import SvcModel
 
 def predictSentiment(comment: str, model, vectorizer):
     """
@@ -35,11 +36,11 @@ def classifyComments(comments: list[Comment]):
     """
     Tüm yorumları sınıflandırır.
     """
-    # Load the sentiment analysis model and vectorizer
-    model = joblib.load('model/model.joblib')
-    vectorizer = joblib.load('model/vectorizer.pkl')
+    model = SvcModel()
+    model.load_model("model/model.pkl")
+
     for comment in comments:
-        comment.type = predictSentiment(comment.text, model, vectorizer)
+        comment.type = model.predict(comment.text)
 
 
 def getCommentsByType(comments: list[Comment], type: int = 0):

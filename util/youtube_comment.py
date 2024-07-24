@@ -52,3 +52,44 @@ def getAllCommentsV3(urls: list) -> List[Comment]:
                 break
 
     return all_comments  # Return all comments
+
+
+def getAllCommentsV2(urls: list) -> List[Comment]:
+    """Verilen YouTube linklerindeki yorumları getirir ve Comment sınıfı ile temsil eder."""
+
+    # YouTube API bağlantıları
+    api_key = "AIzaSyDZMUoUZRoY8Gq637tPw6R6L33aUumLCuE"
+    youtube = build('youtube', 'v3', developerKey=api_key)
+
+    all_comments = []  # Tüm yorumların saklanacağı liste
+    
+    for url in urls:
+        # Verilen URL'den video ID'sini çıkarır
+        if "shorts" in url:
+            video_id = url.split("/")[-1]
+        else:
+            video_id = url.split("v=")[1].split("&")[0]
+
+        next_page_token = None
+
+        while True:
+            results = youtube.commentThreads().list(
+                part='snippet',
+                videoId=video_id,
+                textFormat='plainText',
+                pageToken=next_page_token,
+                maxResults=100  # Bir sayfada alınacak maksimum yorum sayısı
+            ).execute()
+
+            for item in results['items']:
+                comment_text = item['snippet']['topLevelComment']['snippet']['textDisplay']
+                comment_id = item['snippet']['topLevelComment']['id']
+                comment = Comment(comment_text, comment_id, video_id)
+                all_comments.append(comment)
+
+            next_page_token = results.get('nextPageToken')
+
+            if not next_page_token:
+                break
+
+    return all_comments  # Tüm yorumları döndür

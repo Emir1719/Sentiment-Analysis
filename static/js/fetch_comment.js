@@ -17,9 +17,9 @@ $(document).ready(function () {
                 window.comments = response;
 
                 // Başlangıçta olumsuzlar gösterilsin
-                showComments('negative');
+                showComments('criticism');
                 $('.filter-btn').removeClass('btn-primary').addClass('btn-secondary');
-                $('.filter-btn[data-filter="negative"]').removeClass('btn-secondary').addClass('btn-primary');
+                $('.filter-btn[data-filter="criticism"]').removeClass('btn-secondary').addClass('btn-primary');
             },
             error: function () {
                 $('.progress').hide(); // Hata durumunda progress bar'ı gizle
@@ -48,12 +48,12 @@ function showComments(filter) {
     resultsDiv.empty();
 
     const commentCategories = {
-        'negative': 'negative_comments',
+        //'negative': 'negative_comments',
         'criticism': 'criticism_comments',
         'donation': 'donation_comments',
         'positive': 'positive_comments',
-        'neutral': 'neutral_comments',
-        'all': 'all_comments'
+        //'neutral': 'neutral_comments',
+        //'all': 'all_comments'
     };
 
     let commentsToShow = commentCategories[filter] ? window.comments[commentCategories[filter]] : window.comments['all_comments'];
@@ -80,7 +80,7 @@ function copyComments(filter) {
         'criticism': 'criticism_comments',
         'donation': 'donation_comments',
         'positive': 'positive_comments',
-        'neutral': 'neutral_comments',
+        //'neutral': 'neutral_comments',
         'all': 'all_comments'
     };
 
