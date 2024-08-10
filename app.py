@@ -20,18 +20,12 @@ def analyze():
     print(f"Fetched {len(comments)} comments")  # Yorum sayısını yazdır
 
     classifyComments(comments)
-    print("Comments classified")  # Sınıflandırmanın bittiğini yazdır
-    
     response_data = {
         'all_comments': [comment.to_dict() for comment in comments],
-        #'neutral_comments': getCommentsByType(comments, 0),
         'positive_comments': getCommentsByType(comments, 1),
         'criticism_comments': getCommentsByType(comments, 2),
         'donation_comments': getCommentsByType(comments, 3),
-        #'negative_comments': getCommentsByType(comments, 4),
     }
-    # print(f"Response data: {response_data}")  # Yanıt verilerini yazdır
-
     return jsonify(response_data)
 
 if __name__ == '__main__':

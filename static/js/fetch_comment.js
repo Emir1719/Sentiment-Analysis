@@ -48,12 +48,9 @@ function showComments(filter) {
     resultsDiv.empty();
 
     const commentCategories = {
-        //'negative': 'negative_comments',
         'criticism': 'criticism_comments',
         'donation': 'donation_comments',
         'positive': 'positive_comments',
-        //'neutral': 'neutral_comments',
-        //'all': 'all_comments'
     };
 
     let commentsToShow = commentCategories[filter] ? window.comments[commentCategories[filter]] : window.comments['all_comments'];
@@ -76,11 +73,9 @@ function showComments(filter) {
 
 function copyComments(filter) {
     const commentCategories = {
-        'negative': 'negative_comments',
         'criticism': 'criticism_comments',
         'donation': 'donation_comments',
         'positive': 'positive_comments',
-        //'neutral': 'neutral_comments',
         'all': 'all_comments'
     };
 
@@ -97,44 +92,36 @@ function copyComments(filter) {
 
 function getBadgeColor(category) {
     switch (category) {
-        case 'negative': return 'bg-danger';
-        case 'criticism': return 'bg-warning';
+        case 'criticism': return 'bg-danger';
         case 'donation': return 'bg-info';
         case 'positive': return 'bg-success';
-        case 'neutral': return 'bg-secondary';
-        default: return 'bg-secondary'; // Tanınmayan kategoriler için varsayılan renk
+        default: return 'bg-success'; // Tanınmayan kategoriler için varsayılan renk
     }
 }
 
 function getType(category) {
     switch (category) {
-        case 'negative': return 4;
         case 'criticism': return 2;
         case 'donation': return 3;
         case 'positive': return 1;
-        case 'neutral': return 0;
-        default: return 0; // Tanınmayan kategoriler için varsayılan renk
+        default: return 1; // Tanınmayan kategoriler için varsayılan renk
     }
 }
 
 function getBadgeText(category) {
     switch (category) {
-        case 'negative': return 'Olumsuz';
-        case 'criticism': return 'Eleştiri/Soru';
+        case 'criticism': return 'Olumsuz/Soru';
         case 'donation': return 'Bağış';
         case 'positive': return 'Olumlu';
-        case 'neutral': return 'Normal';
-        default: return 'Normal'; // Tanınmayan kategoriler için varsayılan metin
+        default: return 'Olumlu'; // Tanınmayan kategoriler için varsayılan metin
     }
 }
 
 function getTextByType(type) {
     switch (type) {
-        case 4: return 'Olumsuz';
-        case 2: return 'Eleştiri/Soru';
+        case 2: return 'Olumsuz/Soru';
         case 3: return 'Bağış';
         case 1: return 'Olumlu';
-        case 0: return 'Normal';
-        default: return 'Normal'; // Tanınmayan kategoriler için varsayılan metin
+        default: return 'Olumlu'; // Tanınmayan kategoriler için varsayılan metin
     }
 }
